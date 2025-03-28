@@ -1,0 +1,19 @@
+-- migrate:up
+CREATE FUNCTION uuid4()
+	RETURNS CHAR(36)
+	READS SQL DATA
+BEGIN
+	SET @b1 = HEX(RANDOM_BYTES(4));
+	SET @b2 = HEX(RANDOM_BYTES(2));
+	SET @b3 = CONCAT(4, SUBSTR(HEX(RANDOM_BYTES(2)), 2));
+	SET @b4 = CONCAT(HEX(FLOOR(RAND() * 4) + 8), SUBSTR(HEX(RANDOM_BYTES(2)), 2));
+	SET @b5 = HEX(RANDOM_BYTES(6));
+
+	RETURN LOWER(CONCAT(
+	    @b1, '-', @b2, '-', @b3, '-', @b4, '-', @b5
+	));
+END;
+
+-- migrate:down
+DROP FUNCTION uuid4;
+
