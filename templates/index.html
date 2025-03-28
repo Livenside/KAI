@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Hello world</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Prata&display=swap" rel="stylesheet">
+		<link href="/static/css/variables.css" rel="stylesheet">
+		<link href="/static/css/styles.css" rel="stylesheet">
+		<link href="/static/css/index.css" rel="stylesheet">
+		<link rel="icon" href="static/logo.svg" type="image/x-icon">
+	</head>
+	<body>
+		{% include "header.html" %}
+		<main class="container">
+			<div class="hero">
+				<img class="hero__picture" src="/static/picss.png" width="472">
+				<div class="hero__content">
+					<blockquote class="big-quote">
+						<p class="big-quote__text">Чтение — вот лучшее учение</p>
+						<cite class="big-quote__cite">— А.С. Пушкин</cite>
+					</blockquote>
+
+					<a class="hero__cta" href="/account">Учиться</a>
+
+					<div class="hero__text">
+						<p>На этом сайте вы найдете <a href="/study-materials">учебные материалы</a>, подготовленные мной за мои 20 лет работы учителем.</p>
+						<p>Кроме этого, здесь вы можете пройти все <a href="/tests">тестовые задания</a> или найти ваше расписание и ваши оценки.</p>
+					</div>
+				</div>
+			</div>
+		</main>
+		{% include "footer.html" %}
+	</body>
+</html>

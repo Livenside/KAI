@@ -1,0 +1,227 @@
+/* Контейнер с сеткой, центрированный и с отступами от боковых краёв */
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px 10px;
+  max-width: 1300px;
+  width: 1300px;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  box-sizing: border-box;
+  grid-template-areas:
+    "checkworks uploadmaterial"
+    "checkresults uploadtest";
+}
+
+/* Определяем области для блоков */
+.checkworks    { grid-area: checkworks; }
+.checkresults  { grid-area: checkresults; }
+.uploadmaterial{ grid-area: uploadmaterial; }
+.uploadtest    { grid-area: uploadtest; }
+
+/* Общие стили для всех блоков */
+.checkworks,
+.checkresults,
+.uploadmaterial,
+.uploadtest {
+  background: #F9FDFB;
+  border: 2px solid #7bc585;
+  border-radius: 10px;
+  padding: 20px;
+  height: 450px;
+  width: 650px;
+  position: relative;
+}
+
+/* Оформление подписи (текст на обводке) */
+.checkworks::before,
+.checkresults::before,
+.uploadmaterial::before,
+.uploadtest::before {
+  content: attr(data-title);
+  position: absolute;
+  top: -12px;
+  left: 20px;
+  background: #F9FDFB;
+  padding: 0 5px;
+  font-weight: bold;
+  color: #7bc585;
+}
+
+/* Общие стили для блоков с контентом */
+.workscontent, .resultscontent {
+  height: 400px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.resultscontent {
+  overflow-x: scroll;
+}
+
+input[type="text"] {
+  display: block;
+  width: 100%;
+  height: 30px;
+  padding: 5px;
+  background: #F9FDFB;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+
+select {
+  width:40%;
+  padding: 5px;
+  background: #F9FDFB;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+
+.select-group {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+div, .upload {
+  margin-bottom: 15px;
+}
+
+/* Стили для кнопки в блоке uploadtest */
+input[type="submit"] {
+  display: block;
+  width: fit-content;
+  padding: 5px 10px;
+  border: none;
+  background: #7bc585;
+  color: #F9FDFB;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+form input[type="submit"]:hover {
+  background: #7bc585;
+  color: #F9FDFB;
+}
+
+/* Стили для формы файла */
+.file-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 3rem 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.file-form > * {
+  width: 550px;
+}
+
+input[type="file"] {
+  display: block;
+  width: 550px;
+  padding: 5px 10px;
+  border: none;
+  background: #F9FDFB;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+
+
+.tgl, .tgl * {
+  box-sizing: border-box;
+}
+
+.tgl {
+  display: none;
+  position: relative;
+
+  &::selection {
+    background: none;
+  }
+
+  + .tgl-btn {
+    outline: 0;
+    display: block;
+    width: 4em;
+    height: 2em;
+    position: absolute; /* Позиционируем чекбокс */
+    top: -19px;
+    left: 230px;
+    cursor: pointer;
+    user-select: none;
+
+    &::after,
+    &::before {
+      position: relative;
+      display: block;
+      content: "";
+      width: 50%;
+      height: 100%;
+    }
+
+    &::after {
+      left: 0;
+    }
+
+    &::before {
+      display: none;
+    }
+  }
+
+  &:checked + .tgl-btn::after {
+    left: 50%;
+  }
+}
+
+.tgl-ios {
+  + .tgl-btn {
+    background: #fbfbfb;
+    border-radius: 2em;
+    padding: 2px;
+    border: 1px solid #e8eae9;
+    transition: all 0.4s ease;
+
+    &::after {
+      border-radius: 2em;
+      background: #fbfbfb;
+      transition:
+        left 0.3s cubic-bezier(0.175, 0.885, 0.320, 1.275),
+        padding 0.3s ease,
+        margin 0.3s ease;
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 4px 0 rgba(0, 0, 0, 0.08);
+    }
+
+    &:hover::after {
+      will-change: padding;
+    }
+
+    &:active {
+      box-shadow: inset 0 0 0 2em #e8eae9;
+
+      &::after {
+        padding-right: 0.8em;
+      }
+    }
+  }
+
+  &:checked + .tgl-btn {
+    background: #86d993;
+
+    &:active {
+      box-shadow: none;
+
+      &::after {
+        margin-left: -0.8em;
+      }
+    }
+  }
+}

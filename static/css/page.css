@@ -1,0 +1,143 @@
+.page main {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding-top: 3rem;
+}
+
+.page h1 {
+	margin-bottom: 3rem;
+}
+
+form {
+	margin-bottom: 2rem;
+}
+
+.radio {
+	width: 500px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 1rem;
+}
+
+.radio p {
+	width: 5.2rem;
+}
+
+.radio input[type="radio"] {
+	display: none;
+}
+
+.radio label,
+.submit {
+	display: inline-block;
+	min-width: 4rem;
+	text-align: center;
+	padding: .2em 0;
+	background: #00000004;
+	box-shadow: #00000020 0 2px 2px;
+	border-radius: .4rem;
+}
+
+.submit {
+	border: none;
+	padding: .2em .9em;
+	font-size: 1rem;
+	display: block;
+	margin: 0 auto;
+	cursor: pointer;
+
+	font-family: Prata;
+}
+
+.radio input[type="radio"]:checked + label {
+	/*background: #00000020;*/
+	background: var(--primary);
+	color: var(--background);
+}
+
+.radio input[type="radio"]:active + label {
+	background: #00000050;
+}
+.radio input[type="radio"]:checked + label:hover {
+	background: color-mix(in srgb, var(--primary) 80%, #000000);
+}
+
+.radio label:hover {
+	background: #00000030;
+	cursor: pointer;
+}
+
+.results {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1rem;
+}
+
+.result {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	width: 500px;
+	margin-bottom: .7rem;
+}
+
+.result:hover,
+a[data-topic]:hover {
+	color: #000000a0;
+}
+
+.result span {
+	font-size: 2rem;
+	width: 2rem;
+}
+
+a[data-topic] {
+	cursor: pointer;
+}
+
+a[data-topic] span {
+	display: inline-block;
+	transform: scale(2.5, 1.5) translate(.6em, -.2em) rotate(180deg);
+}
+
+a[data-topic] span {
+	display: inline-block;
+	transform: scale(2.5, 1.5) translate(.6em, -.2em) rotate(180deg);
+}
+
+a[data-topic].active span {
+	display: inline-block;
+	transform: scale(2.5, 1.5) translate(.6em, .1em);
+}
+
+div[data-topic-results] {
+	display: none;
+}
+
+div[data-topic-results].shown {
+	display: block;
+}
+
+.file-form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: .5rem;
+	margin: 3rem 0;
+}
+.file-form > * {
+	width: 280px;
+}
+
+.file-form textarea {
+	padding: .4rem;
+}
+
+.file-form input[type="submit"] {
+	width: fit-content;
+	padding: .2rem .5rem;
+	font-family: Prata;
+}

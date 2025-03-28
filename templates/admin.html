@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Hello world</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/file-icon-vectors@1.0.0/dist/file-icon-vectors.min.css">
+
+		<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Prata&display=swap" rel="stylesheet">
+		<link href="/static/css/variables.css" rel="stylesheet">
+		<link href="/static/css/styles.css" rel="stylesheet">
+		<link href="/static/css/page.css" rel="stylesheet">
+		<link href="/static/css/auth.css" rel="stylesheet">
+		<link href="/static/css/admin.css" rel="stylesheet">
+		
+		<script src="/static/js/topic.js" defer></script>
+		
+		<link rel="icon" href="static/logo.svg" type="image/x-icon">
+	</head>
+	<body class="page">
+		{% include "header.html" %}
+		<main class="container">
+			<h1>Панель управления</h1>
+
+			<div class="grid-container">
+				<!-- Верхний левый блок -->
+				<div class="checkworks" data-title="Проверка работ">
+					<div class="workscontent">
+						<div>
+							{% if works %}
+								{% for work in works|reverse %}
+								
+								<div style="border: 1px solid #ccc; border-radius: 5px; padding: 5px;">
+									[{{ work.sent }}] – от [№{{work.user_id}}] {{ work.user_name }} [{{work.user_class}} кл], комментарий: {{ work.sent_detail }}
+									<a class="result" href="/admin/works/{{work.id}}/download">
+										<span class="fiv-viv fiv-icon-{{ file_name(work.file_id).split('.')[-1][:3]|lower }}"></span>
+										<p>{{ file_name(work.file_id)|truncate(50, True, '...') }}</p>
+									</a>
+								</div>
+							{% endfor %}
+							{% else %}
+								<p>Нет сданных работ</p>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+				
+
+
+				<!-- Нижний левый блок -->
+				<div class="checkresults" data-title="Проверка результатов">
+					<input class="tgl tgl-ios" id="cb2" type="checkbox" {% if checkbox_checked %} checked {% endif %}/>
+    				<label class="tgl-btn" for="cb2"></label>
+					<div id="resultscontents" class="resultscontent" {% if checkbox_checked %} style="display: none;" {% endif %}>
+						{% for result in results %}
+							<div style="border: 1px solid #ccc; border-radius: 5px; padding: 3px;">
+								<p>
+									[{{ result.test_result.sent }}] [{{ result['test_class'] }}.{{ result['test_quarter'] }}] "{{ result['test_topic'] }}" – "{{ result['test_name'] }}" <br>
+									[№{{ result.user.id }}] {{ result.user.first_name }} {{ result.user.last_name }} [{{ result.user.clas }} кл] –  {{ result.test_result.score }}/{{ result.test_result.max_score }}
+								</p>
+							</div>
+						{% endfor %}
+					</div>
+					
+				
+					
+					<!--<div>
+						{% for t in tests %}
+							<a data-topic="class-{{t.clas}}" style="margin-left: 0px; display: block;">{{ t.clas }} <span>^</span></a>
+							<div data-topic-results="class-{{t.clas}}">
+								<a data-topic="quarter-{{t.quarter}}" style="margin-left: 10px; display: block;">{{ t.quarter }} <span>^</span></a>
+								<div data-topic-results="quarter-{{t.quarter}}">
+									<a data-topic="topic-{{t}}" style="margin-left: 20px; display: block;">{{ t }} <span>^</span></a>
+									<div data-topic-results="topic-{{t}}">
+										{% for r in tests[t] %}
+											<a data-topic="theme-{{r.name}}" style="margin-left: 30px; display: block;">{{ r.name }} <span>^</span></a>
+											<div data-topic-results="theme-{{r.name}}">
+												{% set filtered_results = results_alt 
+													| selectattr("test_result.test_id", "equalto", r.id) 
+													| unique(attribute="user.id") %}
+												{% for result in filtered_results %}
+													<a data-topic="user-{{result.user.id}}-{{r.id}}" style="margin-left: 40px; display: block;">{{result.user.id}} – {{ result.user.first_name }} {{ result.user.last_name }} <span>^</span> </a>
+													<div data-topic-results="user-{{result.user.id}}-{{r.id}}">
+														{% for res in results_alt if res.user.id == result.user.id and res.test_result.test_id == r.id %}
+															<p style="margin-left: 40px;">
+																[{{ res.test_result.sent }}] – 
+																{{ res.user.first_name }} {{ res.user.last_name }} – 
+																{{ res.test_result.score }} / {{ res.test_result.max_score }}
+															</p>
+														{% endfor %}
+													</div>
+												{% endfor %}
+											</div>
+										{% endfor %}
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+					</div>-->
+
+
+					<div id="resultscontents2" class="resultscontent" {% if not checkbox_checked %} style="display: none;" {% endif %} >
+						{% for clas, quarters in tests.items() %}
+						  <a data-topic="class-{{clas}}" style="margin-left: 0px; display: block;">Класс: {{ clas }} <span>^</span></a>
+						  <div data-topic-results="class-{{clas}}" style="">
+					  
+							{% for quarter, topics in quarters.items() %}
+							  <a data-topic="class-{{clas}}-quarter-{{quarter}}" style="margin-left: 20px; display: block;">Четверть: {{ quarter }} <span>^</span></a>
+							  <div data-topic-results="class-{{clas}}-quarter-{{quarter}}" style="">
+					  
+								{% for topic, tests_by_topic in topics.items() %}
+								  <a data-topic="class-{{clas}}-quarter-{{quarter}}-topic-{{topic}}" style="margin-left: 40px; display: block;">Тема: {{ topic }} <span>^</span></a>
+								  <div data-topic-results="class-{{clas}}-quarter-{{quarter}}-topic-{{topic}}" style="">
+					  
+									{% for name, tests_list in tests_by_topic.items() %}
+									  <a data-topic="class-{{clas}}-quarter-{{quarter}}-topic-{{topic}}-test-{{name}}" style="margin-left: 60px; display: block;">Тест: {{ name }} <span>^</span></a>
+									  <div data-topic-results="class-{{clas}}-quarter-{{quarter}}-topic-{{topic}}-test-{{name}}" style="">
+					  
+										{% set filtered_results = results_alt 
+										  | selectattr("test_result.test_id", "equalto", tests_list[0].id) 
+										  | unique(attribute="user.id") %} <!-- Фильтруем уникальных учеников для каждого теста -->
+										
+										{% for result in filtered_results %}
+											<a data-topic="class-{{clas}}-quarter-{{quarter}}-topic-{{topic}}-test-{{name}}-user-{{result.user.id}}-{{tests_list[0].id}}" style="margin-left: 80px; display: block;">
+											[№{{ result.user.id }}] – [{{ result.user.clas }} кл] {{ result.user.first_name }} {{ result.user.last_name }} <span>^</span> </a>
+											<div data-topic-results="class-{{clas}}-quarter-{{quarter}}-topic-{{topic}}-test-{{name}}-user-{{result.user.id}}-{{tests_list[0].id}}" style="">
+											{% for res in results_alt if res.user.id == result.user.id and res.test_result.test_id == tests_list[0].id %}
+												<p style="margin-left: 80px;">
+													[{{ res.test_result.sent }}] – {{ res.test_result.score }} / {{ res.test_result.max_score }}
+												</p>
+											{% endfor %}
+										  </div>
+										{% endfor %}
+									  </div>
+									{% endfor %}
+								  </div>
+								{% endfor %}
+							  </div>
+							{% endfor %}
+						  </div>
+						{% endfor %}
+					  </div>
+					  
+											
+					  
+
+
+
+
+
+				</div>
+				
+
+
+				<!-- Верхний правый блок: uploadmaterial -->
+				<div class="uploadmaterial" data-title="Загрузить учебный материал">
+					<form class="file-form" action="/admin/sendMaterial" method="POST" enctype="multipart/form-data">
+						<div class="input-group">
+							<input type="text" name="topicc" placeholder="Введите тему">
+							<input type="text" name="titlee" placeholder="Введите заголовок">
+						</div>
+
+						<div class="select-group">
+							<select name="classs">
+								<option value="6">6 класс</option>
+								<option value="7">7 класс</option>
+								<option value="8">8 класс</option>
+								<option value="9">9 класс</option>
+							</select>
+							<select name="quart">
+								<option value="1">I четверть</option>
+								<option value="2">II четверть</option>
+								<option value="3">III четверть</option>
+								<option value="4">IV четверть</option>
+							</select>
+						</div>
+
+						<input
+							type="file"
+							name="file"
+							id="file"
+							accept=".pdf,.doc,.docx,.jpg,.png"
+						>
+
+						<input type="submit" value="Загрузить материал">
+					</form>
+				</div>
+
+
+
+				<!-- Нижний правый блок: uploadtest -->
+				<div class="uploadtest" data-title="Загрузить тестирование">
+					<form class="file-form" action="/admin/sendTest" method="POST" enctype="multipart/form-data">
+						<div class="input-group">
+							<input type="text" name="topicc" placeholder="Введите тему">
+							<input type="text" name="titlee" placeholder="Введите заголовок (опционально)">
+						</div>
+
+						<div class="select-group">
+							<select name="classs">
+								<option value="6">6 класс</option>
+								<option value="7">7 класс</option>
+								<option value="8">8 класс</option>
+								<option value="9">9 класс</option>
+							</select>
+							<select name="quart">
+								<option value="1">I четверть</option>
+								<option value="2">II четверть</option>
+								<option value="3">III четверть</option>
+								<option value="4">IV четверть</option>
+							</select>
+						</div>
+
+						<input
+							type="file"
+							name="file"
+							id="file"
+							accept=".doc,.docx,.txt"
+						>
+
+						<input type="submit" value="Загрузить тест">
+					</form>
+				</div>
+			</div>
+
+
+
+			<!--<h2>Последние результаты тестов:</h2>
+			<div>
+				{% for result in results %}
+					<p>
+						{{ result.user.first_name }}
+						{{ result.user.last_name }} – 
+						{{ result.test_result.score }} / 
+						{{ result.test_result.max_score }}
+					</p>
+				{% endfor %}
+			</div>-->
+		</main>
+		{% include "footer.html" %}
+	</body>
+</html>

@@ -1,0 +1,43 @@
+{%
+	set roman = {
+		1: 'I',
+		2: 'II',
+		3: 'III',
+		4: 'IV',
+	}
+%}
+<form action="{{ action }}" method="GET">
+	<div class="radio class-radio">
+		<p>Класс:</p>
+
+		{% for i in range(6, 9 + 1) %}
+			<input
+				type="radio"
+				name="class"
+				value="{{ i }}"
+				id="class-{{ i }}"
+				{{ "checked" if class == i|string else "" }}
+			required>
+			<label for="class-{{ i }}">{{ i }}</label>
+		{% endfor %}
+
+	</div>
+
+	<div class="radio quarter-radio">
+		<p>Четверть:</p>
+
+		{% for i in range(1, 4 + 1) %}
+			<input
+				type="radio"
+				name="quarter"
+				value="{{ i }}"
+				id="quarter-{{ i }}"
+				{{ "checked" if quarter == i|string else "" }}
+			required>
+			<label for="quarter-{{ i }}">{{ roman[i] }}</label>
+		{% endfor %}
+
+	</div>
+
+	<button class="submit">Загрузить</button>
+</form>

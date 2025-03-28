@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Hello world</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Prata&display=swap" rel="stylesheet">
+		<link href="/static/css/variables.css" rel="stylesheet">
+		<link href="/static/css/styles.css" rel="stylesheet">
+		<link href="/static/css/page.css" rel="stylesheet">
+		<link href="/static/css/auth.css" rel="stylesheet">
+		<link rel="icon" href="static/logo.svg" type="image/x-icon">
+	</head>
+	<body class="page">
+		{% include "header.html" %}
+		<main class="container">
+			<h1>Регистрация</h1>
+
+			{% if error %}
+				<div class="error">
+					{{error}}
+				</div>
+			{% endif %}
+			
+			<form action="/register" method="POST">
+				<label for="email">Email</label>
+				<input id="email" name="email" type="email" required>
+
+				<label for="password">Пароль</label>
+				<input id="password" name="password" type="password" required>
+
+				<label for="first_name">Имя</label>
+				<input id="first_name" name="first_name" type="text" required>
+
+				<label for="last_name">Фамилия</label>
+				<input id="last_name" name="last_name" type="text" required>
+
+				<label for="class">Класс</label>
+				<input id="class" name="class" type="number" min="6" max="9" required>
+
+				<input type="submit" value="Продолжить">
+			</form>
+			<p>Уже есть аккаунт? <a class="link" href="/login">Войти</a></p>
+		</main>
+		{% include "footer.html" %}
+	</body>
+</html>

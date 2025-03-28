@@ -1,0 +1,44 @@
+form {
+	margin: 0 auto;
+	display: flex;
+	flex-direction: column;
+	width: 320px;
+}
+
+form input {
+	display: inline-block;
+	font-size: 1rem;
+	background: transparent;
+	border: 1px solid #00000040;
+	color: var(--text);
+}
+
+form input:not([type="submit"]) {
+	margin: .1rem 0 .6rem;
+	padding: .2em .4em;
+}
+
+form input[type="submit"] {
+	width: 150px;
+	margin: .2rem auto 1rem;
+	padding: .5em 1.2em;
+	cursor: pointer;
+}
+
+form input[type="submit"]:hover {
+	background: #00000010;
+}
+
+form input[type="submit"]:active {
+	background: #00000020;
+}
+
+.error {
+	width: 320px;
+	text-align: center;
+	padding: 0 .2em;
+	margin-bottom: .5em;
+	margin-top: -1.9em;
+	background: #ffa8a8;
+	border: 1px solid #ff5757;
+}

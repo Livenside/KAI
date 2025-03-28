@@ -1,0 +1,25 @@
+{% if results is none %}
+	<div>Выберите класс и четверть</div>
+{% elif not results %}
+	<div>Нет результатов</div>
+{% else %}
+	<div class="results">
+		{% for t in results %}
+		<a data-topic="{{t}}">{{ t }} <span>^</span></a>
+		<div data-topic-results="{{t}}">
+			{% for r in results[t] %}
+				{% if action == "/study-materials" %}
+					<a class="result" href="/study-materials/{{r['material'].id}}/download">
+						<span class="fiv-viv fiv-icon-{{r['file'].fname.split('.')[-1][:3]}}"></span>
+						<p>{{ r['material'].title }}</p>
+					</a>
+				{% elif action == "/tests" %}
+					<a class="result" href="/tests/{{r.id}}">
+						<p>{{ r.name }}</p>
+					</a>
+				{% endif %}
+			{% endfor %}
+			</div>
+		{% endfor %}
+	</div>
+{% endif %}

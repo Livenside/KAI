@@ -1,0 +1,10 @@
+:root {
+	--background: #F9FDFB;
+	--text: #030B07;
+	--primary: #3CC686;
+	--secondary: #8ABADD;
+	--accent: #688AD3;
+
+	--header-height: 80px;
+	--footer-height: 80px;
+}

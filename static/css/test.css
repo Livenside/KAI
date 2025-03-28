@@ -1,0 +1,36 @@
+#questions {
+	max-width: 800px;
+	line-height: 1.5;
+	display: flex;
+	flex-direction: column;
+	gap: 2rem;
+}
+
+.wording {
+	font-size: 1.2rem;
+	margin-bottom: .5em;
+}
+
+.option {
+	line-height: 1.7;
+}
+
+.option input {
+	margin-right: .4rem;
+}
+
+input[type="submit"] {
+	border: none;
+	width: fit-content;
+	text-align: center;
+	background: #00000004;
+	box-shadow: #00000020 0 2px 2px;
+	border-radius: .4rem;
+	padding: .4em .9em;
+	font-size: 1rem;
+	display: block;
+	margin: 0 auto;
+	cursor: pointer;
+	font-family: Prata;
+}
+

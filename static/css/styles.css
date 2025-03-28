@@ -1,0 +1,65 @@
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background: var(--background);
+	color: var(--text);
+	font-family: "Prata", serif;
+}
+
+a {
+	color: var(--text);
+	text-decoration: none;
+}
+
+.container {
+	width: 1280px;
+	margin: 0 auto;
+	padding: 0 10px;
+}
+
+.container--header {
+	height: 60px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.header {
+	height: 80px;
+	display: flex;
+	align-items: center;
+	font-size: 12px;
+	box-shadow: #00000030 0 0 1rem;
+}
+
+.site-name {
+	font-size: 18px;
+}
+
+.container--header > * {
+	display: flex;
+	gap: 3ch;
+	align-items: center;
+}
+
+main {
+	min-height: calc(100vh - var(--header-height) - var(--footer-height));
+}
+
+.footer {
+	height: var(--footer-height);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	box-shadow: #00000010 0 0 1rem;
+}
+
+a.link {
+	color: var(--accent);
+}

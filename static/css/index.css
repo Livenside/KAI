@@ -1,0 +1,36 @@
+.hero {
+    display: flex;
+    padding: 2rem;
+    gap: 8rem;
+}
+
+.hero__content {
+    padding-top: 3rem
+}
+
+.big-quote {
+    margin-bottom: 2.5rem;
+}
+
+.big-quote__text {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.hero__cta {
+    display: inline-block;
+    background: var(--primary);
+    color: var(--background);
+    padding: 1em 4em;
+    border-radius: 8px;
+    margin-bottom: 4rem;
+}
+
+.hero__text p {
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+.hero__text a {
+    color: var(--primary);
+}
